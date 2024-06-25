@@ -19,10 +19,7 @@ export default function() {
                         <Route index element={<Home/>} />
                         <Route path="login" element={<Login/>}/>
                         <Route path="register" element={<Register/>}/>
-                        <Route path="posts">
-                            <Route index element={<Posts/>} />
-                            <Route path=":slug" element={<SinglePost/>}/>
-                        </Route>
+                        <Route path="posts" element={<Posts/>}/>
                 </Route>
                         {/* Private */}
                 <Route path="/" element={
@@ -30,7 +27,10 @@ export default function() {
                     <DefaultLayout />
                     </ProtectPage>
                     }>
-                        <Route path="create" element={<CreatePost/>}/>
+                        <Route path="posts">
+                            <Route path=":slug" element={<SinglePost/>}/>
+                            <Route path="create" element={<CreatePost/>}/>
+                        </Route>
                 </Route>
             </Routes>
     )
