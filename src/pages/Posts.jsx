@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-const apiUrl = import.meta.env.VITE_BASE_API_URL;
+import axios from "../utils/axiosClient";
 import { Link, useSearchParams } from "react-router-dom";
 
 export default function(){
@@ -13,7 +12,7 @@ const currPage = parseInt(searchParams.get('page'));
 
 useEffect(() => {
     setPosts(null);
-        const url = `${apiUrl}/posts?page=${currPage}&limit=9`;
+        const url = `/posts?page=${currPage}&limit=9`;
         axios.get(url).then(({data}) => setPosts(data.posts)
         
     );

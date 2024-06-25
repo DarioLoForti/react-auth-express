@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import Form from '../components/Form';
-import axios from 'axios';
-const apiUrl = import.meta.env.VITE_BASE_API_URL;
+import axios from '../utils/axiosClient';
 
 export default function() {
     
@@ -9,7 +8,7 @@ export default function() {
     
         const createPost = async data => {
             console.log(data);
-            const res = await axios.post(`${apiUrl}/posts`, data, {
+            const res = await axios.post(`/posts`, data, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }

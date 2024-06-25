@@ -1,28 +1,82 @@
+import { useAuth } from "../contexts/AuthContext";
+import { useState } from "react";
+
 export default function(){
+
+    const { register } = useAuth();
+
+    const initialData = {
+        email: '',
+        password: '',
+        name: '',
+        profileImage: ''
+    };
+    const [formData, setFormData] = useState(initialData);
+
+    const [signupError, setSignupError] = useState(null);
+
+    const changeData = (key, value) => {
+        setFormData(curr => ({
+            ...curr,
+            [key]: value
+        }));
+    }
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        try{
+            await register(formData);
+            setFormData(initialData);
+        }catch(err){
+            setSignupError(err);
+        }
+    }
 
     return (
         <div className="register-container">
-            <form className="register-form">
+            <form onSubmit={handleSubmit} className="register-form">
                 <h2>Register</h2>
                 <div className="form-control">
                     <label>Username</label>
-                    <input
+                    <input 
                         type="text"
+                        placeholder="Username" 
+                        value={formData.name}
+                        onChange={e => changeData('name', e.target.value)}
                     />
                 </div>
                 <div className="form-control">
                     <label>Email</label>
-                    <input
-                        type="email"
+                    <input 
+                        type="text"
+                        placeholder="Email" 
+                        required
+                        value={formData.email}
+                        onChange={e => changeData('email', e.target.value)}
                     />
                 </div>
                 <div className="form-control">
                     <label>Password</label>
-                    <input
+                    <input 
                         type="password"
+                        required
+                        placeholder="Password" 
+                        value={formData.password}
+                        onChange={e => changeData('password', e.target.value)}
                     />
                 </div>
-                <button type="submit">Register</button>
+                <div className="form-control">
+                    <label>Image Profile</label>
+                    <input 
+                    type="file"
+                    onChange={e => changeData('profileImage', e.target.files[0])}
+                />
+                </div>
+                {signupError !== null && <div className="error">{signupError.message}</div>}
+                {signupError?.errors && signupError.errors.map( (err, index) => (
+                    <div key={`err${index}`}>{err.msg}</div>
+                ))}
+                <button>Register</button>
             </form>
         </div>
     )
