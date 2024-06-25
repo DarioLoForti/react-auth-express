@@ -14,7 +14,7 @@ const urlPages = [
 
 export default function(){
 
-const {isLoggedIn, logout} = useAuth();
+const {isLoggedIn, logout, user} = useAuth();
 
     return (
         <header>
@@ -25,15 +25,26 @@ const {isLoggedIn, logout} = useAuth();
                             <NavLink to={href}>{label}</NavLink>
                         </li>
                     ))}
-                    {!isLoggedIn && 
-                    <li>
-                        <NavLink to="/login">Login</NavLink>
-                    </li>
-                    }
+                    {!isLoggedIn && <>
+                        <li>
+                            <NavLink to={`/login`}>Login</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={`/register`}>Register</NavLink>
+                        </li>
+                    </>}
                     {isLoggedIn &&
-                    <li>
-                        <button onClick={logout}>Logout</button>
-                    </li>
+                        
+                            <div className="avatar">
+                                {user.image_path &&
+                                    <figure>
+                                        <img src={user.image_path} alt={user.name} />
+                                    </figure>
+                                }
+                                {user.name && <h3>{user.name}</h3>}
+                                <button onClick={logout}>Logout</button>
+                            </div>
+                        
                     }
                 </menu>
             </nav>

@@ -24,6 +24,10 @@ header{
               }
           
           }
+          img{
+                width: 50px;
+                
+          }
           button{
                 padding: 10px;
                 background-color: white;
@@ -32,6 +36,15 @@ header{
                 border-radius: 5px;
                 cursor: pointer;
             
+          }
+          .avatar{
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+                img{
+                    width: 50px;
+                    border-radius: 50%;
+                }
           }
     }
 }
