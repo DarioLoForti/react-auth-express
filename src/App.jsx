@@ -29,8 +29,8 @@ export default function() {
                     }>
                         <Route path="posts">
                             <Route path=":slug" element={<SinglePost/>}/>
-                            <Route path="create" element={<CreatePost/>}/>
                         </Route>
+                            <Route path="create" element={<CreatePost/>}/>
                 </Route>
             </Routes>
     )
